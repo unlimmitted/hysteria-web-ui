@@ -39,8 +39,7 @@ export default {
 	height: 50px;
 	cursor: pointer;
 	border-style: solid;
-	border-color: #fa7878;
-	background-color: #e33b3b;
+	background-color: #ffbc00;
 	border-radius: 10px;
 	border-width: 1px;
 	color: white;
