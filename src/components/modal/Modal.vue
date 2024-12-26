@@ -56,7 +56,7 @@ export default {
 	min-width: 200px;
 	max-width: fit-content;
 	margin: 15% auto;
-	padding: 5px 20px 20px;
+	padding: 5px 20px 5px;
 	border: 1px solid #888;
 }
 

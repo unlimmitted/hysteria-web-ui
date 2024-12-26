@@ -21,7 +21,7 @@
 			</div>
 			<div class="right-block">
 				<label class="switch">
-					<input type="checkbox" checked>
+					<input type="checkbox" :checked="true">
 					<span class="slider round"></span>
 				</label>
 				<button class="action-btn" @click="this.openModal('qrModalWindow')">
@@ -45,7 +45,7 @@
 			</div>
 			<div class="right-block">
 				<label class="switch">
-					<input type="checkbox" checked>
+					<input type="checkbox" :checked="false">
 					<span class="slider round"></span>
 				</label>
 				<button class="action-btn" @click="this.openModal('qrModalWindow')">
@@ -69,7 +69,7 @@
 			</div>
 			<div class="right-block">
 				<label class="switch">
-					<input type="checkbox" checked>
+					<input type="checkbox" :checked="true">
 					<span class="slider round"></span>
 				</label>
 				<button class="action-btn" @click="this.openModal('qrModalWindow')">
