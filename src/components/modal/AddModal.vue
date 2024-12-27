@@ -33,8 +33,7 @@ export default {
 			axios.post(`/api/v1/user`, {username: this.username})
 				.then(response => {
 					this.$emit('newUser', response.data)
-					// \/Это для закрытия модалки
-					document.getElementById(this.id).style.display = "none";
+					document.getElementById(this.id).style.display = "none"
 				})
 		}
 	},

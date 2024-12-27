@@ -3,16 +3,39 @@
 		<div class="login-card">
 			<img class="logo" src="https://v2.hysteria.network/assets/banner_light.svg" alt="">
 			<div class="input-container">
-				<input class="input" placeholder="Enter password" type="password">
+				<input class="input" placeholder="Enter password" type="password" v-model="password">
 			</div>
-			<button class="login-btn">Login</button>
+			<button class="login-btn" @click="login">Login</button>
 		</div>
 	</div>
 </template>
 
 <script>
+import axios from "axios";
+import router from "@/router.js";
+import {useRouter} from "vue-router";
+
 export default {
-	name: "Login"
+	name: "Login",
+
+	data: () => ({
+		password: ''
+	}),
+
+	methods: {
+		login() {
+			axios.post(`/auth/login?password=${this.password}`)
+				.then(response => {
+					router.push('/')
+				})
+		}
+	},
+
+	setup() {
+		return {
+			router: useRouter()
+		}
+	}
 }
 </script>
 

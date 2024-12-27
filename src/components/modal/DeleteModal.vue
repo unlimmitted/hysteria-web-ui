@@ -6,7 +6,7 @@
 		<template v-slot:content>
 			<div class="content">
 				<span class="text">Delete {{ userToDelete.name }}?</span>
-				<button class="del-btn">Delete</button>
+				<button class="del-btn" @click="deleteUser">Delete</button>
 			</div>
 		</template>
 	</Modal>
@@ -14,6 +14,7 @@
 
 <script>
 import Modal from "@/components/modal/Modal.vue";
+import axios from "axios";
 
 export default {
 	name: "DeleteModal",
@@ -29,6 +30,16 @@ export default {
 	props: [
 		'userToDelete',
 	],
+
+	methods: {
+		deleteUser() {
+			axios.delete(`/api/v1/user?username=${this.userToDelete.name}`)
+			.then(response => {
+				this.$emit('deleteUser', response.data);
+				document.getElementById(this.id).style.display = "none"
+			})
+		}
+	},
 };
 </script>
 

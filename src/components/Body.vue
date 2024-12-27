@@ -41,7 +41,7 @@
 	</div>
 	<QrModal :imageUrl="qrUrl"/>
 	<AddModal @newUser="newUser"/>
-	<DeleteModal :userToDelete="user"/>
+	<DeleteModal :userToDelete="userToDelete" @deleteUser="deleteUser"/>
 </template>
 
 <script>
@@ -58,14 +58,23 @@ export default {
 	data: () => ({
 		name: "",
 		users: [],
-		user: {},
+		userToDelete: {},
 		qrUrl: ""
 	}),
 
 	methods: {
 		openModal(modal, user) {
-			this.user = user;
-			this.qrUrl = user
+			switch (modal) {
+				case "qrModalWindow": {
+					this.userToDelete = user;
+					break;
+				}
+				case "deleteModalWindow": {
+
+					break;
+				}
+			}
+			this.qrUrl = `/api/v1/user/qr?username=${user.name}`
 			document.getElementById(modal).style.display = "unset";
 		},
 
@@ -78,15 +87,19 @@ export default {
 
 		newUser(newUser) {
 			this.users.push(newUser);
+		},
+
+		deleteUser(user) {
+			this.users = this.users.filter(u => u.name !== user.name);
 		}
 	},
 
 	mounted() {
 		axios.get("/api/v1/users")
-			.then((response) => {
+			.then(response => {
 				this.users = response.data;
 			})
-			.catch((error) => {
+			.catch(error => {
 				console.log(error)
 			})
 	},

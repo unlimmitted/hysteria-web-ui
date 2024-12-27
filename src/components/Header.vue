@@ -1,7 +1,7 @@
 <template>
 	<div class="header">
 		<img class="title-img" src="https://v2.hysteria.network/assets/banner_light.svg" alt="pic">
-		<div class="log-out">
+		<div class="log-out" @click="logout">
 			<img class="log-out-pic" src="@/assets/logout-icon.webp" alt="logout">
 			<span class="logout-text">Logout</span>
 		</div>
@@ -9,8 +9,24 @@
 </template>
 
 <script>
+import axios from "axios";
+import {useRouter} from "vue-router";
+
 export default {
-	name: "Header"
+	name: "Header",
+
+	methods: {
+		logout() {
+			axios.post("/auth/logout")
+			this.router.push("/login");
+		}
+	},
+
+	setup() {
+		return {
+			router: useRouter()
+		}
+	}
 }
 </script>
 
