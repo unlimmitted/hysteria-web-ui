@@ -1,5 +1,5 @@
 <template>
-	<Modal :id="'deleteModalWindow'">
+	<Modal :id="this.id">
 		<template v-slot:header>
 			Delete client
 		</template>
@@ -21,6 +21,10 @@ export default {
 	components: {
 		Modal,
 	},
+
+	data: ()=> ({
+		id: "deleteModalWindow",
+	}),
 
 	props: [
 		'userToDelete',

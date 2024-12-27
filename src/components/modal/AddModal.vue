@@ -1,5 +1,5 @@
 <template>
-	<Modal :id="'addModalWindow'">
+	<Modal :id="this.id">
 		<template v-slot:header>
 			New client
 		</template>
@@ -24,6 +24,7 @@ export default {
 	},
 
 	data: () =>({
+		id: "addModalWindow",
 		username: ""
 	}),
 
@@ -32,6 +33,8 @@ export default {
 			axios.post(`/api/v1/user`, {username: this.username})
 				.then(response => {
 					this.$emit('newUser', response.data)
+					// \/Это для закрытия модалки
+					document.getElementById(this.id).style.display = "none";
 				})
 		}
 	},

@@ -1,5 +1,5 @@
 <template>
-	<Modal :id="'qrModalWindow'">
+	<Modal :id="this.id">
 		<template v-slot:header>
 			QR Code
 		</template>
@@ -16,9 +16,10 @@ import Modal from "@/components/modal/Modal.vue";
 
 export default {
 	name: "QrModal",
-
 	components: {Modal},
-
+	data: ()=> ({
+		id: "qrModalWindow",
+	}),
 	props: [
 		'imageUrl',
 	],
