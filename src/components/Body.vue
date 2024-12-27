@@ -1,112 +1,92 @@
 <template>
-<div class="root-container">
-	<div class="clients-container">
-		<div class="container-header">
-			<span class="title">Clients</span>
-			<button
+	<div class="root-container">
+		<div class="clients-container">
+			<div class="container-header">
+				<span class="title">Clients</span>
+				<button
 					class="new-client-btn"
-					@click="this.openModal('addModalWindow')"
-			>
-				+ New
-			</button>
-		</div>
-		<hr class="separator"/>
-		<div class="container-body">
-			<div class="left-block">
-				<img class="def-user-pic" src="@/assets/def-user-icon.png" alt="">
-				<div class="user-info">
-					<span class="username">Mike Tyson</span>
-					<span class="other-data">10.8.0.2 2 minutes ago</span>
+					@click="this.openModal('addModalWindow', {})"
+				>
+					+ New
+				</button>
+			</div>
+			<hr class="separator"/>
+			<div v-for="user in this.users">
+				<div class="container-body">
+					<div class="left-block">
+						<img class="def-user-pic" src="@/assets/def-user-icon.png" alt="">
+						<div class="user-info">
+							<span class="username">{{ user.name }}</span>
+							<!--<span class="other-data">10.8.0.2 2 minutes ago</span>-->
+						</div>
+					</div>
+					<div class="right-block">
+						<label class="switch">
+							<input type="checkbox" :checked="user.enabled"/>
+							<span class="slider round"></span>
+						</label>
+						<button class="action-btn" @click="this.openModal('qrModalWindow', user)">
+							<img class="btn-icon" src="@/assets/qr-icon.webp" alt="">
+						</button>
+						<button class="action-btn" @click="this.copyUrl(user)">
+							<img class="btn-icon" src="@/assets/copy-icon.webp" alt="">
+						</button>
+						<button class="action-btn" @click="this.openModal('deleteModalWindow', user)">
+							<img class="btn-icon" src="@/assets/delete-icon.png" alt="">
+						</button>
+					</div>
 				</div>
-			</div>
-			<div class="right-block">
-				<label class="switch">
-					<input type="checkbox" :checked="true">
-					<span class="slider round"></span>
-				</label>
-				<button class="action-btn" @click="this.openModal('qrModalWindow')">
-					<img class="btn-icon" src="@/assets/qr-icon.webp" alt="">
-				</button>
-				<button class="action-btn">
-					<img class="btn-icon" src="@/assets/copy-icon.webp" alt="">
-				</button>
-				<button class="action-btn" @click="this.openModal('deleteModalWindow')">
-					<img class="btn-icon" src="@/assets/delete-icon.png" alt="">
-				</button>
-			</div>
-		</div>
-		<div class="container-body">
-			<div class="left-block">
-				<img class="def-user-pic" src="@/assets/def-user-icon.png" alt="">
-				<div class="user-info">
-					<span class="username">Mike Tyson</span>
-					<span class="other-data">10.8.0.2 2 minutes ago</span>
-				</div>
-			</div>
-			<div class="right-block">
-				<label class="switch">
-					<input type="checkbox" :checked="false">
-					<span class="slider round"></span>
-				</label>
-				<button class="action-btn" @click="this.openModal('qrModalWindow')">
-					<img class="btn-icon" src="@/assets/qr-icon.webp" alt="">
-				</button>
-				<button class="action-btn">
-					<img class="btn-icon" src="@/assets/copy-icon.webp" alt="">
-				</button>
-				<button class="action-btn" @click="this.openModal('deleteModalWindow')">
-					<img class="btn-icon" src="@/assets/delete-icon.png" alt="">
-				</button>
-			</div>
-		</div>
-		<div class="container-body">
-			<div class="left-block">
-				<img class="def-user-pic" src="@/assets/def-user-icon.png" alt="">
-				<div class="user-info">
-					<span class="username">Mike Tyson</span>
-					<span class="other-data">10.8.0.2 2 minutes ago</span>
-				</div>
-			</div>
-			<div class="right-block">
-				<label class="switch">
-					<input type="checkbox" :checked="true">
-					<span class="slider round"></span>
-				</label>
-				<button class="action-btn" @click="this.openModal('qrModalWindow')">
-					<img class="btn-icon" src="@/assets/qr-icon.webp" alt="">
-				</button>
-				<button class="action-btn">
-					<img class="btn-icon" src="@/assets/copy-icon.webp" alt="">
-				</button>
-				<button class="action-btn" @click="this.openModal('deleteModalWindow')">
-					<img class="btn-icon" src="@/assets/delete-icon.png" alt="">
-				</button>
 			</div>
 		</div>
 	</div>
-</div>
-	<QrModal/>
+	<QrModal :image-url="qrUrl"/>
 	<AddModal/>
-	<DeleteModal/>
+	<DeleteModal :user-to-delete="user"/>
 </template>
 
 <script>
 import QrModal from "@/components/modal/QrModal.vue";
 import AddModal from "@/components/modal/AddModal.vue";
 import DeleteModal from "@/components/modal/DeleteModal.vue";
+import axios from 'axios'
 
 export default {
 	name: "Body",
+
 	components: {DeleteModal, AddModal, QrModal},
+
 	data: () => ({
 		name: "",
+		users: [],
+		user: {},
+		qrUrl: ""
 	}),
+
 	methods: {
-		openModal(modal) {
-			console.log(modal);
+		openModal(modal, user) {
+			this.user = user;
+			this.qrUrl = user
 			document.getElementById(modal).style.display = "unset";
+		},
+
+		copyUrl(user) {
+			axios.get(`/api/v1/user/url?username=${user.name}`)
+				.then(result => {
+					navigator.clipboard.writeText(result.data);
+				})
 		}
-	}
+	},
+
+	mounted() {
+		axios.get("/api/v1/users")
+			.then((response) => {
+				this.users = response.data;
+			})
+			.catch((error) => {
+				console.log(error)
+			})
+	},
+
 }
 </script>
 

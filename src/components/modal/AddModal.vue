@@ -1,15 +1,15 @@
 <template>
-<Modal :id="'addModalWindow'">
-	<template v-slot:header>
-		New client
-	</template>
-	<template v-slot:content>
-		<div class="content">
-			<input class="nameInput" placeholder="Enter name" type="text">
-			<button class="add-btn">Add</button>
-		</div>
-	</template>
-</Modal>
+	<Modal :id="'addModalWindow'">
+		<template v-slot:header>
+			New client
+		</template>
+		<template v-slot:content>
+			<div class="content">
+				<input class="nameInput" placeholder="Enter name" type="text">
+				<button class="add-btn">Add</button>
+			</div>
+		</template>
+	</Modal>
 </template>
 
 <script>

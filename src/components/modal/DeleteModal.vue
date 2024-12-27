@@ -5,7 +5,7 @@
 		</template>
 		<template v-slot:content>
 			<div class="content">
-				<span class="text">Delete [какой то юзерок]</span>
+				<span class="text">Delete {{ userToDelete.name }}?</span>
 				<button class="del-btn">Delete</button>
 			</div>
 		</template>
@@ -16,13 +16,17 @@
 import Modal from "@/components/modal/Modal.vue";
 
 export default {
-	name: "DeleteModal" ,
-	components: {Modal}
-}
+	name: "DeleteModal",
+
+	components: { Modal },
+
+	props: {
+		userToDelete: {}
+	},
+};
 </script>
 
 <style scoped>
-
 .content {
 	display: flex;
 	flex-direction: column;
