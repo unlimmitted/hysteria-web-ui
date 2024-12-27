@@ -1,9 +1,5 @@
 <template>
-	<div class="root">
-		<Header class="app-header"/>
-		<Body/>
-		<Footer class="footer"/>
-	</div>
+	<router-view/>
 </template>
 
 <script>
@@ -29,30 +25,6 @@ body {
 	font-style: normal;
 	margin: 0 !important;
 	padding: 0 !important;
-	height: 100vh;
-}
-
-.app-header {
-	z-index: 1;
-	background-color: white;
-	position: sticky;
-	top: 0;
-	margin-bottom: 10px;
-}
-
-.footer {
-	margin-top: auto;
-	position: sticky;
-	bottom: 0;
-}
-
-button {
-	font-family: "Roboto", serif;
-}
-
-.root {
-	display: flex;
-	flex-direction: column;
 	height: 100vh;
 }
 </style>

@@ -39,9 +39,9 @@
 			</div>
 		</div>
 	</div>
-	<QrModal :image-url="qrUrl"/>
+	<QrModal :imageUrl="qrUrl"/>
 	<AddModal/>
-	<DeleteModal :user-to-delete="user"/>
+	<DeleteModal :userToDelete="user"/>
 </template>
 
 <script>

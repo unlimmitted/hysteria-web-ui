@@ -19,9 +19,7 @@ export default {
 
 	components: {Modal},
 
-	props: {
-		imageUrl: "",
-	},
+	props: ['imageUrl'],
 
 	methods: {},
 }

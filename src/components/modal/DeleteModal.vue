@@ -20,9 +20,7 @@ export default {
 
 	components: { Modal },
 
-	props: {
-		userToDelete: {}
-	},
+	props: ["userToDelete"],
 };
 </script>
 
