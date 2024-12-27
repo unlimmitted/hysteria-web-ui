@@ -3,8 +3,7 @@
 		<div class="login-card">
 			<img class="logo" src="https://v2.hysteria.network/assets/banner_light.svg" alt="">
 			<div class="input-container">
-				<input class="input" type="text">
-				<input class="input" type="password">
+				<input class="input" placeholder="Enter password" type="password">
 			</div>
 			<button class="login-btn">Login</button>
 		</div>
