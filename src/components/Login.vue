@@ -24,9 +24,15 @@ export default {
 
 	methods: {
 		login() {
-			axios.post(`/auth/login?password=${this.password}`)
-				.then(response => {
-					router.push('/')
+			const utf8Bytes = new TextEncoder().encode(this.password)
+			let base64password = btoa(String.fromCharCode(...utf8Bytes))
+			axios.post(`/auth/login?password=${base64password}`)
+				.then(() => {
+					axios.get(`/auth/status`, {})
+						.then(response => {
+							console.log(response.data)
+							router.push('/')
+						})
 				})
 		}
 	},
