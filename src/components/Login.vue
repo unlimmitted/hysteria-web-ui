@@ -28,11 +28,18 @@ export default {
 			let base64password = btoa(String.fromCharCode(...utf8Bytes))
 			axios.post(`/auth/login?password=${base64password}`)
 				.then(() => {
-					axios.get(`/auth/status`, {})
+					axios.get(`/auth/status`, {withCredentials: true})
 						.then(response => {
-							console.log(response.data)
-							router.push('/')
+							if (response.data.authenticated) {
+								router.push('/')
+							}
 						})
+						.catch(error => {
+							console.error("Request failed:", error);
+						})
+				})
+				.catch(error => {
+					console.error("Request failed:", error);
 				})
 		}
 	},

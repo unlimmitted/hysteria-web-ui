@@ -65,16 +65,15 @@ export default {
 	methods: {
 		openModal(modal, user) {
 			switch (modal) {
-				case "qrModalWindow": {
+				case "deleteModalWindow": {
 					this.userToDelete = user
 					break
 				}
-				case "deleteModalWindow": {
-
+				case "qrModalWindow": {
+					this.qrUrl = `/api/v1/user/qr?username=${user.name}`
 					break
 				}
 			}
-			this.qrUrl = `/api/v1/user/qr?username=${user.name}`
 			document.getElementById(modal).style.display = "unset"
 		},
 
