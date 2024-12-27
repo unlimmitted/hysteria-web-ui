@@ -45,9 +45,9 @@
 </template>
 
 <script>
-import QrModal from "@/components/modal/QrModal.vue";
-import AddModal from "@/components/modal/AddModal.vue";
-import DeleteModal from "@/components/modal/DeleteModal.vue";
+import QrModal from "@/components/modal/QrModal.vue"
+import AddModal from "@/components/modal/AddModal.vue"
+import DeleteModal from "@/components/modal/DeleteModal.vue"
 import axios from 'axios'
 
 export default {
@@ -66,38 +66,52 @@ export default {
 		openModal(modal, user) {
 			switch (modal) {
 				case "qrModalWindow": {
-					this.userToDelete = user;
-					break;
+					this.userToDelete = user
+					break
 				}
 				case "deleteModalWindow": {
 
-					break;
+					break
 				}
 			}
 			this.qrUrl = `/api/v1/user/qr?username=${user.name}`
-			document.getElementById(modal).style.display = "unset";
+			document.getElementById(modal).style.display = "unset"
 		},
 
 		copyUrl(user) {
 			axios.get(`/api/v1/user/url?username=${user.name}`)
 				.then(result => {
-					navigator.clipboard.writeText(result.data);
+					const textArea = document.createElement('textarea')
+					textArea.value = result.data
+					textArea.style.position = 'fixed'
+					textArea.style.opacity = '0'
+					document.body.appendChild(textArea)
+					textArea.focus()
+					textArea.select()
+					try {
+						document.execCommand('copy')
+					} catch (err) {
+					}
+					document.body.removeChild(textArea)
+				})
+				.catch(error => {
+					console.error('Ошибка при получении URL:', error)
 				})
 		},
 
 		newUser(newUser) {
-			this.users.push(newUser);
+			this.users.push(newUser)
 		},
 
 		deleteUser(user) {
-			this.users = this.users.filter(u => u.name !== user.name);
+			this.users = this.users.filter(u => u.name !== user.name)
 		}
 	},
 
 	mounted() {
 		axios.get("/api/v1/users")
 			.then(response => {
-				this.users = response.data;
+				this.users = response.data
 			})
 			.catch(error => {
 				console.log(error)
