@@ -40,7 +40,7 @@
 		</div>
 	</div>
 	<QrModal :imageUrl="qrUrl"/>
-	<AddModal/>
+	<AddModal @newUser="newUser"/>
 	<DeleteModal :userToDelete="user"/>
 </template>
 
@@ -74,6 +74,10 @@ export default {
 				.then(result => {
 					navigator.clipboard.writeText(result.data);
 				})
+		},
+
+		newUser(newUser) {
+			this.users.push(newUser);
 		}
 	},
 

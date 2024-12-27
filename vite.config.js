@@ -6,6 +6,15 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: `js/[name].js`,
+        chunkFileNames: `js/[name].js`,
+        assetFileNames: `css/[name].[ext]`
+      }
+    }
+  },
   plugins: [
     vue(),
     vueDevTools(),

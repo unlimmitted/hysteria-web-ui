@@ -5,8 +5,8 @@
 		</template>
 		<template v-slot:content>
 			<div class="content">
-				<input class="nameInput" placeholder="Enter name" type="text">
-				<button class="add-btn">Add</button>
+				<input v-model="username" class="nameInput" placeholder="Enter name" type="text">
+				<button class="add-btn" @click="addUser">Add</button>
 			</div>
 		</template>
 	</Modal>
@@ -14,10 +14,27 @@
 
 <script>
 import Modal from "@/components/modal/Modal.vue";
+import axios from "axios";
 
 export default {
 	name: "AddModal",
-	components: {Modal}
+
+	components: {
+		Modal
+	},
+
+	data: () =>({
+		username: ""
+	}),
+
+	methods: {
+		addUser() {
+			axios.post(`/api/v1/user`, {username: this.username})
+				.then(response => {
+					this.$emit('newUser', response.data)
+				})
+		}
+	},
 }
 </script>
 

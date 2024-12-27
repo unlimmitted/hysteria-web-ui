@@ -18,9 +18,13 @@ import Modal from "@/components/modal/Modal.vue";
 export default {
 	name: "DeleteModal",
 
-	components: { Modal },
+	components: {
+		Modal,
+	},
 
-	props: ["userToDelete"],
+	props: [
+		'userToDelete',
+	],
 };
 </script>
 
